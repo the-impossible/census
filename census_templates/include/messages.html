@@ -1,0 +1,36 @@
+{% load static %}
+<!-- Message Modal -->
+
+{% if messages %}
+  <div class="modal fade" id="message" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-body my-3">
+					{% for message in messages  %}
+            {% if message.tags == 'warning' %}
+							<img src="{% static 'users/images/warning.png' %}" alt="success message" class="mx-auto d-block" width="40%">
+              <p class="lead text-center mt-2">{{ message }}</p>
+						{% elif message.tags == 'success' %}
+							<img src="{% static 'users/images/success.png' %}" alt="success message" class="mx-auto d-block" width="30%">
+              <p class="lead text-center mt-2">{{ message }}</p>
+            {% elif message.tags == 'error' %}
+							<img src="{% static 'users/images/error.png' %}" alt="success message" class="mx-auto d-block" width="30%">
+              <p class="lead text-center mt-2">{{ message }}</p>
+            {% elif message.tags == 'info' %}
+							<img src="{% static 'users/images/success.png' %}" alt="success message" class="mx-auto d-block" width="30%">
+							<p class="lead text-center mt-2">{{ message }}</p>
+						{% else %}
+						  <img src="{% static 'users/images/error.png' %}" alt="success message" class="mx-auto d-block" width="30%">
+              <p class="lead text-center mt-2">{{ message }}</p>
+            {% endif %}
+					{% endfor %}						
+          <div class="row">
+            <div class="mx-auto">
+              <button type="button" class="btn btn-info px-4" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

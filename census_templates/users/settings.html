@@ -1,0 +1,118 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}Settings{% endblock %}
+{% block body %}
+<body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+    {% include 'include/messages.html' %}
+    {% include 'include/preloader.html' %}
+    {% include 'include/login_nav.html' %}
+
+    <div class="wrapper">        
+        {% if request.user.is_staff %}
+            {% include 'include/admin_sidebar.html' %}
+        {% else %}
+            {% include 'include/user_sidebar.html' %}
+        {% endif %}            
+        <div class="main-panel">
+            <!-- BEGIN : Main Content-->
+            <div class="main-content">
+                <div class="content-overlay"></div>
+                <div class="content-wrapper">
+                    <div class="row match-height mx-auto">
+                        <div class="col-xl-4 col-lg-4  col-md-4 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">User Details</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <img src="{% static 'users/images/details.png' %}" alt="new Password" class="img-responsive mx-auto d-block" width="200px" height="150px">
+                                        <p class="mt-2">Name:{% if user_details.profile.firstName %} {{ user_details.profile.firstName }} {{ user_details.profile.lastName }} {{ user_details.profile.otherName }} {% else %} Not Supplied {% endif %}</p>
+                                        <p class="">Email:
+                                            <span class="">{{ user_details.email|truncatechars:20 }} <i class="fa fa-check-circle-o text-success"> </i></span>
+                                        </p>
+                                        <p>Phone Number:{% if user_details.profile.phoneNumber %} {{ user_details.profile.phoneNumber }} {% else %} Not Supplied {% endif %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4  col-md-4 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Change Password</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <img src="{% static 'users/images/password.png' %}" alt="new Password" class="img-responsive mx-auto d-block" width="200px" height="150px">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <label for="" class="">Enter Current Password</label>
+                                            <input type="password" id="old" class="form-control" required name="old">
+
+                                            <label for="">Enter New Password</label>
+                                            <input type="password" id="password" class="form-control" required name="password">
+
+                                            <label for="">Confirm New Password</label>
+                                            <input type="password" id="password1" class="form-control" required name="password1">
+                                            <div style="color:rgb(189, 54, 54);" id="FieldFeedback" class="mt-2"></div>
+                                            <button type="submit" id="changeP" disabled class="btn bg-light-primary btn-block mt-3">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4  col-md-4 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Change Email</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <img src="{% static 'users/images/noInvitation.png' %}" alt="new Password" class="img-responsive mx-auto d-block" width="200px" height="150px">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <label for="">Enter Current Password</label>
+                                            <input type="password" required class="form-control" name="oldP">
+
+                                            <label for="">Enter New Email</label>
+                                            <input type="email" required class="form-control" name="email" id="emailField">
+                                            <div class="invalid-feedback" id="emailFieldFeedback"></div>
+                                            
+                                            <button type="submit" class="btn bg-light-primary btn-block mt-3" id="changeE">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END : End Main Content-->
+
+            <!-- BEGIN : Footer-->
+            {% include 'include/auth_footer.html' %}
+            
+            <!-- End : Footer-->
+            <!-- Scroll to top button -->
+            <button class="btn btn-primary scroll-top" type="button"><i class="ft-arrow-up"></i></button>
+
+        </div>
+    </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+    <!-- START Notification Sidebar-->
+    {% include 'include/task.html' %}
+
+    <!-- END Notification Sidebar-->
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+    {% include 'include/auth_script.html' %}
+    {% include 'include/message.html' %}
+    <script src="{% static 'auth/assets/js/settings.js' %}"></script>
+    <!-- <script src="{% static 'auth/assets/js/clear.js' %}"></script> -->
+    
+</body>
+{% endblock %}
+</html>

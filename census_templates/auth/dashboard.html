@@ -1,0 +1,140 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+    {% include 'include/messages.html' %}
+    {% include 'include/preloader.html' %}
+    {% include 'include/login_nav.html' %}
+
+    <div class="wrapper">        
+        {% if request.user.is_staff %}
+            {% include 'include/admin_sidebar.html' %}
+        {% else %}
+            {% include 'include/user_sidebar.html' %}
+        {% endif %}            
+        <div class="main-panel">
+            <!-- BEGIN : Main Content-->
+            <div class="main-content">
+                <div class="content-overlay"></div>
+                <div class="content-wrapper">
+                    <!--Statistics cards Starts-->
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-12">
+                            <div class="card gradient-purple-love">
+                                <div class="card-content">
+                                    <div class="card-body py-0">
+                                        <div class="media pb-1">
+                                            <div class="media-body white text-left">
+                                                <span>Census Status</span>
+                                                <h2 class="font-large-1 white mb-0 text-center">{% if status %} Verified {% else %} unVerified {% endif %}</h2>
+                                            </div>
+                                            <div class="media-right white text-right">
+                                                <i class="fa fa-briefcase font-large-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Widget-line-chart" class="height-75 WidgetlineChart WidgetlineChartshadow mb-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-12">
+                            <div class="card gradient-ibiza-sunset">
+                                <div class="card-content">
+                                    <div class="card-body py-0">
+                                        <div class="media pb-1">
+                                            <div class="media-body white text-left">
+                                                <span>LGAs population</span>
+                                                <h2 class="font-large-1 white mb-0 text-center">{{ lga_pop }}</h2>
+                                            </div>
+                                            <div class="media-right white text-right">
+                                                <i class="fa fa-users font-large-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Widget-line-chart1" class="height-75 WidgetlineChart WidgetlineChartshadow mb-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--Statistics cards Ends-->
+
+                    <div class="row match-height">
+                        <div class="col-xl-10 col-lg-12 col-12 mx-auto">
+                            <div class="card shopping-cart">
+                                <div class="card-header pb-2">
+                                    <h4 class="card-title mb-1">Application</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body p-0">
+                                        {% if profile %}
+                                        <div class="table-responsive">
+                                            <table class="table text-center m-0">                                                
+                                                <thead>
+                                                    <tr>
+                                                        <th>FullName</th>
+                                                        <th>phoneNumber</th>
+                                                        <th>email</th>
+                                                        <th>Gender</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ profile.firstName }} {{ profile.lastName }} {{ profile.otherName }}</td>
+                                                        <td>{{ profile.phoneNumber }}</td>
+                                                        <td>{{ request.user.email }}</td>
+                                                        <td> {% if profile.gender == "['1']" %} Male {% else %} Female {% endif %}</td>
+                                                        <td>
+                                                            <span class="badge badge-pill bg-light-success">Verified</span>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{% url 'users:admin_create_users' %}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> edit</a>
+                                                        </td>
+                                                    </tr>                                
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% else %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <img src="{% static 'users/images/nojob.svg' %}" width="40%" class="img-fluid mx-auto d-block mt-3" alt="">
+                                                <p class="lead text-center pt-2">You have not applied for your census Yet!</p>
+                                                <p class="lead text-center">
+                                                    <a href="{% url 'users:admin_create_users' %}" class="btn btn-primary"><i class="fa fa-briefcase"></i> Apply now</a>
+                                                </p>
+                                            </div>
+                                        </div>                                           
+                                        {% endif %} 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'include/auth_footer.html' %}
+            <!-- Scroll to top button -->
+            <button class="btn btn-primary scroll-top" type="button"><i class="ft-arrow-up"></i></button>
+
+        </div>
+    </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+    <!-- START Notification Sidebar-->
+    {% include 'include/task.html' %}
+
+    <!-- END Notification Sidebar-->
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+    {% include 'include/auth_script.html' %}
+    {% include 'include/message.html' %}
+    <!-- <script src="{% static 'auth/assets/js/clear.js' %}"></script> -->
+    
+</body>
+{% endblock %}
+</html>

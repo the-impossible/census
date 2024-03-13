@@ -1,0 +1,94 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}List Users{% endblock %}
+{% block body %}
+    <body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+        {% include 'include/messages.html' %}
+        {% include 'include/preloader.html' %}
+        {% include 'include/login_nav.html' %}
+
+        <div class="wrapper">
+            {% include 'include/admin_sidebar.html' %}
+            <div class="main-panel">
+                <!-- BEGIN : Main Content-->
+                <div class="main-content">
+                    <div class="content-overlay"></div>
+                    <div class="content-wrapper">
+
+                        <section class="users-list-wrapper">
+                            <!-- Table starts -->
+                            <div class="users-list-table">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">Users Messages</h4>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <!-- Datatable starts -->
+                                                    <div class="table-responsive">
+                                                        <table id="dataTable" class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Message</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>                                                                
+                                                                {% if message %}
+                                                                    {% for user in message %}
+                                                                    <tr>
+                                                                        <td>{{ forloop.counter }}</td>
+                                                                        <td>{{ user.name }}</td>
+                                                                        <td>{{ user.email }}</td>
+                                                                        <td>{{ user.message }}</td>
+                                                                        <td>{% if user.done %}<span class="badge bg-light-success">True</span>{% else %}<span class="badge bg-light-danger">False</span>{% endif %}</td>
+                                                                        <td>
+                                                                            <form action="" method="POST">
+                                                                                {% csrf_token %}
+                                                                                <input type="hidden" value="{{ user.id }}" name="message_id">
+                                                                                <button class="btn bg-light-primary btn-sm" type="submit"> {% if user.done %} unmark {% else %} mark {% endif %} </button>
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                
+                                                                {% else %}
+                                                                    <p>No user</p>
+                                                                {% endif %}
+                                                                                                                            
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- Datatable ends -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Table ends -->
+                        </section>
+
+                    </div>
+                </div>
+                <!-- END : End Main Content-->
+
+                {% include 'include/auth_footer.html' %}
+
+            </div>
+        </div>
+        {% include 'include/task.html' %}
+        <div class="sidenav-overlay"></div>
+        <div class="drag-target"></div>
+        {% include 'include/auth_script.html' %}
+        {% include 'include/message.html' %}
+        <script src="{% static 'auth/assets/js/clear.js' %}"></script>
+    </body>
+{% endblock %}
+</html>

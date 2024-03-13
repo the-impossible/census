@@ -1,0 +1,46 @@
+{% load static %}
+<div class="app-sidebar menu-fixed" data-background-color="man-of-steel" data-image="{% static 'auth/app-assets/img/sidebar-bg/02.jpg' %}" data-scroll-to-active="true">
+    <div class="sidebar-header">
+        <div class="logo clearfix"><a class="logo-text float-left" href="{% url 'users:home' %}">
+            <div class="lead-3 ml-4">CBCIMS</div>
+        </a><a class="nav-toggle d-none d-lg-none d-xl-block" id="sidebarToggle" href="javascript:;"><i class="toggle-icon ft-toggle-right" data-toggle="expanded"></i></a><a class="nav-close d-block d-lg-block d-xl-none" id="sidebarClose" href="javascript:;"><i class="ft-x"></i></a></div>
+    </div>
+    <div class="sidebar-content main-menu-content">
+        <div class="nav-container">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li><a href="{% url 'staff:admin_dashboard' %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Dashboard 1">Dashboard</span></a>
+                </li>
+                <li><a href="{% url 'staff:admin_staff_edit' request.user.id %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Users">Profile</span></a>
+                </li>
+               <li class="has-sub nav-item"><a href="javascript:;"><i class="ft-users"></i><span class="menu-title" data-i18n="Components">Users</span></a>
+                    <ul class="menu-content">
+                        <li><a href="{% url 'users:admin_create_users' %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Toastr">Create Users</span></a>
+                        </li>
+                        <li><a href="{% url 'staff:admin_user_list' %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Sweet Alert">List Users</span></a>
+                        </li>
+                    </ul>
+                </li>
+
+                {% if request.user.is_superuser %}
+                    <li class="has-sub nav-item"><a href="javascript:;"><i class="ft-users"></i><span class="menu-title" data-i18n="Components">Staffs</span></a>
+                        <ul class="menu-content">
+                            <li><a href="{% url 'staff:admin_create_staffs' %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Toastr">Create Staff</span></a>
+                            </li>
+                            <li><a href="{% url 'staff:admin_staff_list' %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Sweet Alert">List Staff</span></a>
+                            </li>                  
+                        </ul>
+                    </li>
+
+                    <li><a href="{% url 'staff:admin_lga_list' %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Users">List LGA</span></a>
+                    <li>
+                        <a href="{% url 'staff:admin_support_message' %}">
+                        <i class="ft-arrow-right submenu-icon"></i>
+                        <span class="menu-item" data-i18n="Sweet Alert">Support Messages</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar-background"></div>
+</div>

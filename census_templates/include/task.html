@@ -1,0 +1,68 @@
+{% load static %}
+<aside class="notification-sidebar d-none d-sm-none d-md-block" id="notification-sidebar"><a class="notification-sidebar-close"><i class="ft-x font-medium-3 grey darken-1"></i></a>
+    <div class="side-nav notification-sidebar-content">
+        <div class="row">
+            <div class="col-12 notification-nav-tabs">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="activity-tab" href="#activity-tab" aria-expanded="true"> <span class="mr-3">Job Invite</span> </a></li>
+                    <li class="nav-item"><a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="settings-tab" href="#settings-tab" aria-expanded="false">Quick Job Invite</a></li>
+                </ul>
+            </div>
+            <div class="col-12 notification-tab-content">
+                <div class="tab-content">
+                    <div class="row tab-pane active" id="activity-tab" role="tabpanel" aria-expanded="true" aria-labelledby="base-tab1">
+                        <div class="col-12" id="activity">
+                            <h5 class="my-2 text-bold-500">Job Invitations</h5>
+                            <div class="timeline-left timeline-wrapper" id="timeline-2">                               
+                                {% if invitation_received %}
+                                    {% for invite in invitation_received %}
+                                        <ul class="timeline">
+                                            <li class="timeline-line"></li>
+                                            <li class="timeline-item">
+                                                <div class="timeline-badge"><span class="bg-primary bg-lighten-4" data-toggle="tooltip" data-placement="right" title="Invitation"><img class="avatar" src="{%static 'users/images/mail.png' %}" alt="avatar" width="40"></span></div>
+                                                <div class="activity-list-text">
+                                                    <h6 class="mb-1"><span>{{ invite.job.title }}</span></h6>
+                                                    <p class="mt-0 mb-2 font-small-3">Date: {{ invite.date }} Time: {{ invite.time }}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    {% endfor %} 
+                                    {% else %}
+                                    <img src="{%static 'users/images/noInvitation.png' %}" alt="no invitation" class="img-responsive mx-auto d-block" width="200px" height="150px">
+                                    <p class="text-center">You have not been invited yet!</p>                                  
+                                {% endif %}                                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row tab-pane" id="settings-tab" aria-labelledby="base-tab2">
+                        <div class="col-12" id="settings">
+                            <h5 class="my-2 text-bold-500"> Quick Job Invitations</h5>
+                            <div class="timeline-left timeline-wrapper" id="timeline-2">                               
+                                {% if quick_invitation_received %}
+                                    {% for invite in quick_invitation_received %}
+                                        <ul class="timeline">
+                                            <li class="timeline-line"></li>
+                                            <li class="timeline-item">
+                                                <div class="timeline-badge"><span class="bg-primary bg-lighten-4" data-toggle="tooltip" data-placement="right" title="Invitation"><img class="avatar" src="{%static 'users/images/mail.png' %}" alt="avatar" width="40"></span></div>
+                                                <div class="activity-list-text">
+                                                    <h6 class="mb-1"><span>{{ invite.job.name }}</span></h6>
+                                                    <p class="mt-0 mb-2 font-small-3">Date: {{ invite.date }} Time: {{ invite.time }}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    {% endfor %} 
+                                    {% else %}
+                                    <img src="{%static 'users/images/noInvitation.png' %}" alt="no invitation" class="img-responsive mx-auto d-block" width="200px" height="150px">
+                                    <p class="text-center">You have not been invited yet!</p>                                   
+                                {% endif %}
+                                    
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

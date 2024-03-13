@@ -1,0 +1,163 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}Create Staff{% endblock %}
+{% block body %}
+<body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+    {% include 'include/messages.html' %}
+    {% include 'include/preloader.html' %}
+    {% include 'include/login_nav.html' %}
+
+<div class="wrapper">
+        {% include 'include/admin_sidebar.html' %}
+        <div class="main-panel">
+            <!-- BEGIN : Main Content-->
+            <div class="main-panel">
+                <!-- BEGIN : Main Content-->
+                <div class="main-content">
+                    <div class="content-overlay"></div>
+                    <div class="content-wrapper">
+                        {% include 'include/error_message.html' %}
+                        <section class="users-edit">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <!-- Media object starts -->
+                                                {% if not request.user.is_staff %}
+                                                <div class="media">
+                                                    <img src="{% if user.profile.imageURL != '' %} {{ user.profile.imageURL }} {% else %} {% static 'auth/app-assets/img/portrait/small/profile.png' %} {% endif %}" alt="user edit avatar" class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
+                                                    <div class="media-body">
+                                                        <p>{{ user.email }} <br> <small class="text-muted">Basic user</small></p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% if request.user.is_staff %}
+                                                <h4 class="mb-4">Staff Creation Form</h4>
+                                                {% endif %}
+                                                 <!-- Account form starts -->
+                                                 <form enctype="multipart/form-data" method="post">
+                                                    {% csrf_token %}                                                
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6">
+
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <label for="users-edit-username">Email Address</label>
+                                                                    {% if form.email.errors %}
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        {{ form.email.errors }}
+                                                                    </div>
+                                                                    {% endif %}		
+                                                                    {{ form.email }}
+                                                                    <div class="invalid-feedback" id="emailFieldFeedback"></div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <label for="users-edit-username">Password</label>
+                                                                    {% if form.password.errors %}
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        {{ form.password.errors }}
+                                                                    </div>
+                                                                    {% endif %}	
+    
+                                                                    <div class="input-group">
+                                                                        {{ form.password }}
+                                                                        <div class="input-group-append mb-2">
+                                                                            <div class="input-group-text">
+                                                                                <span class="fa fa-eye-slash" id="tooglePassword" style="cursor: pointer;"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="invalid-feedback" id="passwordFieldFeedback"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+    
+                                                        <div class="col-12 col-md-6">                                        
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <label for="users-edit-username">Username</label>
+                                                                    {% if form.username.errors %}
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        {{ form.username.errors }}
+                                                                    </div>
+                                                                    {% endif %}		
+                                                                    {{ form.username }}
+                                                                    <div class="invalid-feedback" id="emailFieldFeedback"></div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+    
+                                                <hr>
+                                                <!-- Account form ends -->
+                                                <!-- Media object ends -->
+                                                <div class="row">
+                                                    <div class="mx-auto">
+                                                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                                                            <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2 "> Create Staff </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if request.user.is_staff %}
+                                <div class="col-4">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <h4 class="text-center">Information We've Acquired</h4>
+                                                    </div>
+                                                </div>
+                                                <canvas id="infoChart" width="300" height="250"></canvas>	
+
+    
+                                                <div class="custom-control custom-radio mt-3">
+                                                    {% if user.profile.religion %}
+                                                        <input type="radio" class="custom-control-input" checked>
+                                                    {% else %}
+                                                        <input type="radio" class="custom-control-input">
+                                                    {% endif %} 
+                                                    <label class="custom-control-label">Religion</label>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </section>                
+                    </div>
+                </div>
+                <!-- END : End Main Content-->
+                {% include 'include/auth_footer.html' %}
+            </div>
+
+        </div>
+    </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+    {% include 'include/task.html' %}
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+    {% include 'include/auth_script.html' %}
+    {% include 'include/message.html' %}
+
+    <script src="{% static 'auth/assets/js/register.js' %}"></script>
+    <script src="{% static 'auth/assets/js/clear.js' %}"></script>
+
+</body>
+{% endblock %}
+</html>

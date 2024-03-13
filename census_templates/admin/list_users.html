@@ -1,0 +1,96 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}List Users{% endblock %}
+{% block body %}
+    <body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+        {% include 'include/messages.html' %}
+        {% include 'include/preloader.html' %}
+        {% include 'include/login_nav.html' %}
+
+        <div class="wrapper">
+            {% include 'include/admin_sidebar.html' %}
+            <div class="main-panel">
+                <!-- BEGIN : Main Content-->
+                <div class="main-content">
+                    <div class="content-overlay"></div>
+                    <div class="content-wrapper">
+
+                        <section class="users-list-wrapper">
+                            <!-- Table starts -->
+                            <div class="users-list-table">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">USERS LIST</h4>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <!-- Datatable starts -->
+                                                    <div class="table-responsive-md">
+                                                        <table id="dataTable" class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>S/N</th>
+                                                                    <th>Username</th>
+                                                                    <th>User ID</th>
+                                                                    <th>Name</th>
+                                                                    <th>Has Profile</th>
+                                                                    <th>Role</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                                                {% if only_users %}
+                                                                    {% for user in only_users %}
+                                                                    <tr>
+                                                                        <td>{{ forloop.counter }}</td>
+                                                                        <td class="text-truncate">
+                                                                            <a href="{% url 'staff:admin_user_details' user.id %}">
+                                                                                <img src="{% if user.profile.imageURL != '' %} {{ user.profile.imageURL }} {% else %} {% static 'auth/app-assets/img/portrait/small/profile.png' %} {% endif %}" class="avatar mr-2" alt="avatar" width="30" height="30">
+                                                                                <span>{{ user.username }}</span>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td class="text-truncate">{{ user.acct_id }}</td>
+                                                                        <td class="text-truncate">{{ user.profile.firstName }}</td>
+                                                                        <td>{% if user.profile %}<span class="badge bg-light-success">True</span>{% else %}<span class="badge bg-light-danger">False</span>{% endif %}</td>
+                                                                        <td>{% if user.is_staff == True %}Staff{% else %}Citizen {% endif %}</td>
+                                                                        <td>{% if user.is_active == True %}<span class="badge bg-light-success">Active</span>{% else %}<span class="badge bg-light-danger">Not Active</span>{% endif %}</td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                
+                                                                {% else %}
+                                                                    <p>No user</p>
+                                                                {% endif %}
+                                                                                                                            
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- Datatable ends -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Table ends -->
+                        </section>
+
+                    </div>
+                </div>
+                <!-- END : End Main Content-->
+
+                {% include 'include/auth_footer.html' %}
+
+            </div>
+        </div>
+        {% include 'include/task.html' %}
+        <div class="sidenav-overlay"></div>
+        <div class="drag-target"></div>
+        {% include 'include/auth_script.html' %}
+        {% include 'include/message.html' %}
+        <script src="{% static 'auth/assets/js/clear.js' %}"></script>
+    </body>
+{% endblock %}
+</html>

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About-Us{% endblock %}
+{% block body %}
+{% include "include/navbar2.html" %}
+<!-- Feature Area Starts -->
+<section class="feature-area section-padding2">
+		<div class="container">
+				<div class="row">
+						<div class="col-lg-12">
+								<div class="section-top text-center">
+									<h2>Why use our product</h2>
+									<p>Our platform reduces human stress in getting registered and enrolled in the census program.</p>
+								</div>
+						</div>
+				</div>
+				<div class="row mb-5">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-lg-6 col-xl-6 col-sm-12">
+									<img src="{% static 'users/images/about.jpg' %}" class="img-responsive-fluid mx-auto d-block shadow-sm my-4" width="80%" alt="">
+								</div>
+								<div class="col-lg-6 col-xl-6 col-sm-12">
+									<p class="text-justify mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore perferendis dicta cum laborum amet rerum. Consectetur nobis, obcaecati quam minima illum perferendis blanditiis excepturi, doloremque rem debitis eos, expedita corrupti?</p>
+									<p class="text-justify mt-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta porro nemo quam doloribus tenetur. Nihil quaerat officia reprehenderit dicta laudantium autem recusandae debitis architecto harum eos! Pariatur aliquam possimus nesciunt!</p>
+									<p class="text-justify mt-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta porro nemo quam doloribus tenetur. Nihil quaerat officia reprehenderit dicta laudantium autem recusandae debitis architecto harum eos! Pariatur aliquam possimus nesciunt!</p>
+								</div>
+							</div>							
+						</div>
+					</div>									
+				</div>
+		</div>
+</section>
+<!-- Feature Area End -->
+
+<script src="{% static 'auth/assets/js/clear.js' %}"></script>
+{% endblock %}

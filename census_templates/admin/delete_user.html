@@ -1,0 +1,79 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}Delete {{ user_details.username }}{% endblock %}
+{% block body %}
+<body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+    {% include 'include/messages.html' %}
+    {% include 'include/preloader.html' %}
+    {% include 'include/login_nav.html' %}
+
+    <div class="wrapper">
+        <!-- main menu-->
+        {% include 'include/admin_sidebar.html' %}       
+
+        <div class="main-panel">
+            <!-- BEGIN : Main Content-->
+            <div class="main-content">
+                <div class="content-overlay"></div>
+                <div class="content-wrapper">
+                    {% include 'include/error_message.html' %}
+                    <!-- Pricing Table Starts -->
+                    <section class="pricing-table">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4 mx-auto">
+                                    <div class="section-top text-center mt-5">
+                                        <h4>Are you Sure you want to delete {{ user_details.username }}?</h4>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img src="{% static 'users/images/trash.png' %}" class="mb-3" width="200px" height="100px" alt="">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="float-left">
+                                                            <a href="{% url 'staff:admin_user_details' user_details.id %}" class="btn btn-primary"><i class="fa fa-arrow-circle-0-left"></i> Cancel</a>
+                                                        </div>
+                                                        <div class="float-right">
+                                                            <form action="" method="POST">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i> Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>                                                
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Pricing Table End -->
+                </div>
+            </div>
+            <!-- END : End Main Content-->
+            
+            <!-- BEGIN : Footer-->
+            <footer class="footer undefined undefined">
+                <p class="clearfix text-muted m-0"><span>Copyright &copy; 2020 &nbsp;</span><a href="https://services.criset.io" id="pixinventLink" target="_blank">CRISET</a><span class="d-none d-sm-inline-block">, All rights reserved.</span></p>
+            </footer>
+            <!-- End : Footer-->
+            <!-- Scroll to top button -->
+            <button class="btn btn-primary scroll-top" type="button"><i class="ft-arrow-up"></i></button>
+        </div>
+    </div>
+
+    <!-- START Notification Sidebar-->
+    {% include 'include/task.html' %}
+
+    <!-- END Notification Sidebar-->
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+    {% include 'include/auth_script.html' %}
+    {% include 'include/message.html' %}
+    <!-- <script src="{% static 'auth/assets/js/clear.js' %}"></script> -->
+    <script src="{% static 'auth/assets/js/queryPayment.js' %}"></script>
+
+
+</body>
+{% endblock %}
+</html>

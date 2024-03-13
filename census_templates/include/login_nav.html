@@ -1,0 +1,58 @@
+{% load static %}
+<!-- Navbar (Header) Ends-->
+<nav class="navbar navbar-expand-lg navbar-light header-navbar navbar-fixed">
+    <div class="container-fluid navbar-wrapper">
+        <div class="navbar-header d-flex">
+            <div class="navbar-toggle menu-toggle d-xl-none d-block float-left align-items-center justify-content-center" data-toggle="collapse"><i class="ft-menu font-medium-3"></i></div>
+           
+        </div>
+        <div class="navbar-container">
+            <div class="collapse navbar-collapse d-block" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="i18n-dropdown dropdown nav-item mr-2"><a class="nav-link d-flex align-items-center dropdown-toggle dropdown-language" id="dropdown-flag" href="javascript:;" data-toggle="dropdown"><img class="langimg selected-flag" src="{% static 'auth/app-assets/img/flags/us.png' %}" alt="flag"><span class="selected-language d-md-flex d-none">English</span></a>
+                        <div class="dropdown-menu dropdown-menu-right text-left" aria-labelledby="dropdown-flag">
+                            <a class="dropdown-item" href="javascript:;" data-language="en">
+                                <img class="langimg mr-2" src="{% static 'auth/app-assets/img/flags/us.png' %}" alt="flag">
+                                <span class="font-small-3">English</span>
+                            </a>
+                        </div>
+                    </li>
+                    <!-- notification -->
+                    <li class="dropdown nav-item mr-1"><a class="nav-link dropdown-toggle user-dropdown d-flex align-items-end" id="dropdownBasic2" href="javascript:;" data-toggle="dropdown">
+                            <div class="user d-md-flex d-none mr-2">
+                                <span class="text-right">{{user}}</span>
+                                <span class="text-right text-muted font-small-3">Available</span>
+                            </div>
+                            <img class="avatar" src="{% if user.profile.imageURL != '' %} {{ user.profile.imageURL }} {% else %} {% static 'auth/app-assets/img/portrait/small/profile.png' %} {% endif %}" alt="avatar" height="35" width="35">
+                            
+                        <div class="dropdown-menu text-left dropdown-menu-right m-0 pb-0" aria-labelledby="dropdownBasic2">
+                            
+                            {% if request.user.is_staff %}
+                                <a class="dropdown-item" href="{% url 'staff:admin_staff_edit' request.user.id %}">
+                                    <div class="d-flex align-items-center"><i class="ft-edit mr-2"></i><span>Edit Profile</span></div>
+                                </a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'users:admin_create_users' %}">
+                                    <div class="d-flex align-items-center"><i class="ft-edit mr-2"></i><span>Profile</span></div>
+                                </a>
+                            {% endif %}
+                                
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'users:settings' %}">
+                                <div class="d-flex align-items-center"><i class="fa fa-gears mr-2"></i><span>Setting</span></div>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'auth:logout' %}">
+                                <div class="d-flex align-items-center"><i class="ft-power mr-2"></i><span>Logout</span></div>
+                            </a>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Navbar (Header) Ends-->

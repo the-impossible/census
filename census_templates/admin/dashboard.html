@@ -1,0 +1,339 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+    {% include 'include/messages.html' %}
+    {% include 'include/preloader.html' %}
+    {% include 'include/login_nav.html' %}
+
+    <div class="wrapper">
+
+        {% include 'include/admin_sidebar.html' %}
+
+        <div class="main-panel">
+            <!-- BEGIN : Main Content-->
+            <div class="main-content">
+                <div class="content-overlay"></div>
+                <div class="content-wrapper">
+                    <!--Statistics cards Starts-->
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                            <div class="card gradient-purple-love">
+                                <div class="card-content">
+                                    <div class="card-body py-0">
+                                        <div class="media pb-1">
+                                            <div class="media-body white text-left">
+                                                <span>Total Population</span>
+                                                <h3 class="font-large-1 text-center mt-1 white mb-0">{{ population }}</h3>
+                                            </div>
+                                            <div class="media-right white text-right">
+                                                <i class="ft-users font-large-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Widget-line-chart" class="height-75 WidgetlineChart WidgetlineChartshadow mb-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                            <div class="card gradient-ibiza-sunset">
+                                <div class="card-content">
+                                    <div class="card-body py-0">
+                                        <div class="media pb-1">
+                                            <div class="media-body white text-left">
+                                                <span>Total Regs. Centers</span>
+                                                <h3 class="font-large-1 text-center mt-1 white mb-0">{{ reg_centers }}</h3>
+                                            </div>
+                                            <div class="media-right white text-right">
+                                                <i class="fa fa-money font-large-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Widget-line-chart1" class="height-75 WidgetlineChart WidgetlineChartshadow mb-2">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                            <div class="card gradient-mint">
+                                <div class="card-content">
+                                    <div class="card-body py-0">
+                                        <div class="media pb-1">
+                                            <div class="media-body white text-left">
+                                                <span>State</span>
+                                                <h3 class="font-large-1 text-center mt-1 white mb-0">Kaduna</h3>
+                                            </div>
+                                            <div class="media-right white text-right">
+                                                <i class="fa fa-money font-large-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Widget-line-chart2" class="height-75 WidgetlineChart WidgetlineChartshadow mb-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                            <div class="card gradient-king-yna">
+                                <div class="card-content">
+                                    <div class="card-body py-0">
+                                        <div class="media pb-1">
+                                            <div class="media-body white text-left">
+                                                <span>Total LGAs</span>
+                                                <h3 class="font-large-1 text-center mt-1 white mb-0">{{ lga }}</h3>
+                                            </div>
+                                            <div class="media-right white text-right">
+                                                <i class="ft-credit-card font-large-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Widget-line-chart3" class="height-75 WidgetlineChart WidgetlineChartshadow mb-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Statistics cards Ends-->
+                    
+                    {% if request.user.is_superuser %}                        
+                    <div class="row match-height">
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-3">Quick Actions</h4>
+                                        <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target=".jobProfession">Add Local Government Areas</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title mb-0">User List</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        {% if first_six_users %}
+                                            {% for user in first_six_users %}
+                                            <div class="media py-2">
+                                                <img class="mr-3 avatar" src="{% if user.profile.imageURL != '' %} {{ user.profile.imageURL }} {% else %} {% static 'auth/app-assets/img/portrait/small/profile.png' %} {% endif %}" alt="Avatar" width="35" height="35">
+                                                <div class="media-body">
+                                                    <h4 class="font-medium-1 mb-0">{{ user.profile.firstName }}</h4>
+                                                    <p class="text-muted font-small-3 m-0">{{ user.username }}</p>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <p><a href="{% url 'staff:admin_user_details' user.id %}"><i class="fa fa-eye"></i> View</a></p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            <div class="text-center mt-2">
+                                                <a href="{% url 'staff:admin_user_list' %}" class="btn bg-light-primary">View All</a>
+                                            </div>
+                                        {% else %}
+                                            <img src="{% static 'users/images/user.png' %}" alt="no user" class="img-responsive mx-auto d-block" width="200px" height="150px">
+                                            <p class="text-center">You have no users yet!</p>                                       
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title mb-0">Staff List</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        {% if first_six_staffs %}
+                                            {% for user in first_six_staffs %}
+                                            <div class="media py-2">
+                                                <img class="mr-3 avatar" src="{% if user.profile.imageURL != '' %} {{ user.profile.imageURL }} {% else %} {% static 'auth/app-assets/img/portrait/small/profile.png' %} {% endif %}" alt="Avatar" width="35" height="35">
+                                                <div class="media-body">
+                                                    <h4 class="font-medium-1 mb-0">{{ user.profile.firstName }}</h4>
+                                                    <p class="text-muted font-small-3 m-0">{{ user.username }}</p>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <p><a href="{% url 'staff:admin_user_details' user.id %}"><i class="fa fa-eye"></i> View</a></p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            <div class="text-center mt-2">
+                                                <a href="" class="btn bg-light-primary">View All</a>
+                                            </div>
+                                        {% else %}
+                                            <img src="{% static 'users/images/user.png' %}" alt="no user" class="img-responsive mx-auto d-block" width="200px" height="150px">
+                                            <p class="text-center">You have no staffs yet!</p>                                            
+                                        {% endif %}                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% elif request.user.is_staff %}
+                    <div class="col-xl-10 col-lg-12 col-12 mx-auto">
+                        <div class="card shopping-cart">
+                            <div class="card-header pb-2">
+                                <h4 class="card-title mb-1">Application</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body p-0">
+                                    {% if profile %}
+                                    <div class="table-responsive">
+                                        <table class="table text-center m-0">                                                
+                                            <thead>
+                                                <tr>
+                                                    <th>FullName</th>
+                                                    <th>phoneNumber</th>
+                                                    <th>email</th>
+                                                    <th>Gender</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ profile.firstName }} {{ profile.lastName }} {{ profile.otherName }}</td>
+                                                    <td>{{ profile.phoneNumber }}</td>
+                                                    <td>{{ request.user.email }}</td>
+                                                    <td> {% if profile.gender == "['1']" %} Male {% else %} Female {% endif %}</td>
+                                                    <td>
+                                                        <span class="badge badge-pill bg-light-success">Verified</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{% url 'staff:admin_staff_edit' request.user.id %}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> edit</a>
+                                                    </td>
+                                                </tr>                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <img src="{% static 'users/images/nojob.svg' %}" width="40%" class="img-fluid mx-auto d-block mt-3" alt="">
+                                            <p class="lead text-center pt-2">You have not applied for your census Yet!</p>
+                                            <p class="lead text-center">
+                                                <a href="{% url 'staff:admin_staff_edit' request.user.id %}" class="btn btn-primary"><i class="fa fa-briefcase"></i> Apply now</a>
+                                            </p>
+                                        </div>
+                                    </div>                                           
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                </div>
+            </div>
+            <!-- END : End Main Content-->
+            
+            {% include 'include/auth_footer.html' %}
+
+        </div>
+    </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+    {% include 'include/task.html' %}
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+    {% include 'include/auth_script.html' %}
+    {% include 'include/message.html' %}
+    <script src="{% static 'auth/assets/js/clear.js' %}"></script>
+
+    <!-- Create Quick Job Categories -->
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="modal fade jobProfession" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create Local Government Areas</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Create LGA</p>
+                        <label for="category">LGA (Hint: kaduna north)</label>
+                        <input type="text" class="form-control" name="lga" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create to LGA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="modal fade quickJobCategory" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create State</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Add to states</p>
+                        <label for="category">State</label>
+                        <input type="text" class="form-control" name="state" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create State</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="modal fade assignJobCategory" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Assign Jobs to Category</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Link jobs to categories</p>
+                        <label for="Category">Category</label>
+                        <select class="custom-select" name="link">
+                            <option selected disabled value="0">Select Category</option>
+                            {% for i in categories %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="Job">Job</label>
+                        <input type="text" class="form-control" name="job" required>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Link to Category</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</body>
+{% endblock %}
+</html>

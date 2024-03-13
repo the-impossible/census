@@ -1,0 +1,21 @@
+{% load static %}
+<div class="app-sidebar menu-fixed" data-background-color="man-of-steel" data-image="{% static 'auth/app-assets/img/sidebar-bg/01.jpg' %}" data-scroll-to-active="true">
+    <div class="sidebar-header">
+        <div class="logo clearfix"><a class="logo-text float-left" href="{% url 'users:home' %}">
+            <div class="lead-3 ml-4">CBCIMS</div>
+            </a><a class="nav-toggle d-none d-lg-none d-xl-block" id="sidebarToggle" href="javascript:;"><i class="toggle-icon ft-toggle-right" data-toggle="expanded"></i></a><a class="nav-close d-block d-lg-block d-xl-none" id="sidebarClose" href="javascript:;"><i class="ft-x"></i></a></div>
+        </div>
+    <div class="sidebar-content main-menu-content">
+        <div class="nav-container">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li>
+                    <a href="{% url 'auth:dashboard' %}"><i class="ft-arrow-right submenu-icon"></i><span class="menu-item" data-i18n="Dashboard 1">Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'users:admin_create_users' %}"><i class="ft-user "></i><span class="menu-item" data-i18n="Users">Profile</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar-background"></div>
+</div>

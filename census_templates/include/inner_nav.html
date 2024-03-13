@@ -1,0 +1,9 @@
+<ul>
+    <li class="active"><a href="{% url 'users:home' %}">home</a></li>
+    <li><a href="{% url 'users:about' %}">about us</a></li>
+    <li><a href="{% url 'users:contact' %}">contact</a></li>
+    <li class="menu-btn">
+        <a href="{% url 'auth:login' %}" class="login">log in</a>
+        <a href="{% url 'auth:register' %}" class="template-btn">sign up</a>
+    </li>
+</ul>

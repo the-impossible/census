@@ -1,0 +1,91 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}List Users{% endblock %}
+{% block body %}
+    <body class="vertical-layout vertical-menu 2-columns  navbar-sticky" data-menu="vertical-menu" data-col="2-columns">
+        {% include 'include/messages.html' %}
+        {% include 'include/preloader.html' %}
+        {% include 'include/login_nav.html' %}
+
+        <div class="wrapper">
+            {% include 'include/admin_sidebar.html' %}
+            <div class="main-panel">
+                <!-- BEGIN : Main Content-->
+                <div class="main-content">
+                    <div class="content-overlay"></div>
+                    <div class="content-wrapper">
+
+                        <section class="users-list-wrapper">
+                            <!-- Table starts -->
+                            <div class="users-list-table">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">Local Government LIST</h4>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <!-- Datatable starts -->
+                                                    <div class="table-responsive-md text-center">
+                                                        <table id="dataTable" class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>S/N</th>
+                                                                    <th>LGA</th>
+                                                                    <th>POPULATION</th>
+                                                                    <th class="text-truncate">Date Created</th>
+                                                                    <th class="text-truncate">Delete</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                                                {% if lga %}
+                                                                    {% for user in lga %}
+                                                                    <tr>
+                                                                        <td>{{ forloop.counter }}</td>
+                                                                        <td class="text-truncate">
+                                                                            <span>{{ user.lga }}</span>
+                                                                        </td>
+                                                                        <td class="text-truncate">
+                                                                            <span>{{ user.population }}</span>
+                                                                        </td>
+                                                                        <td>{{ user.date_created|date:'SHORT_DATE_FORMAT' }}</td>
+                                                                        <td><a href="{% url 'staff:admin_lga_delete' user.id %}" class="btn btn-sm bg-light-secondary"><i class="fa fa-trash-o text-danger"> </i> delete</a></td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                
+                                                                {% else %}
+                                                                    <p>No LGA</p>
+                                                                {% endif %}
+                                                                                                                            
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- Datatable ends -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Table ends -->
+                        </section>
+
+                    </div>
+                </div>
+                <!-- END : End Main Content-->
+
+                {% include 'include/auth_footer.html' %}
+
+            </div>
+        </div>
+        {% include 'include/task.html' %}
+        <div class="sidenav-overlay"></div>
+        <div class="drag-target"></div>
+        {% include 'include/auth_script.html' %}
+        {% include 'include/message.html' %}
+        <script src="{% static 'auth/assets/js/clear.js' %}"></script>
+    </body>
+{% endblock %}
+</html>

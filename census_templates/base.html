@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head class="loading">
+		<!-- Required Meta Tags -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Census | {% block title %} {% endblock %}</title>
+		{% include 'include/head.html' %}
+		{% include 'include/important.html' %}
+	</head>
+	<body>
+	{% include 'include/preloader.html' %}
+	<div>
+		{% block body %}
+		
+		{% endblock %}
+	</div>	
+	
+	{% include 'include/script.html' %}
+	{% include 'include/footer.html' %}
+    {% include 'include/message.html' %}
+	</body>
+</html>

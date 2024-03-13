@@ -1,0 +1,100 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block body %}
+<body class="vertical-layout vertical-menu 1-column auth-page navbar-sticky blank-page" data-menu="vertical-menu" data-col="1-column">
+    {% include 'include/messages.html' %}
+    {% include 'include/preloader.html' %}
+	<div class="wrapper">
+			<div class="main-panel">
+					<!-- BEGIN : Main Content-->
+					<div class="main-content">
+							<div class="content-overlay"></div>
+							<div class="content-wrapper">
+									<!--Registration Page Starts-->
+									<section id="regestration" class="auth-height">
+											<div class="row full-height-vh m-0">
+													<div class="col-12 d-flex align-items-center justify-content-center">
+															<div class="card overflow-hidden">
+																	<div class="card-content">
+																			<div class="card-body auth-img ">
+																					<div class="row m-0">
+																							<div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center text-center auth-img-bg py-2">
+																								<img src="{% static 'auth/app-assets/img/gallery/register.png' %}" alt="" class="img-fluid" width="350" height="230">
+																							</div>
+																							<div class="col-lg-6 col-md-12 px-4 py-3">
+																								<h4 class="card-title mb-2">Create Account</h4>
+																								<p>Fill the below form to create a new account.</p>
+																								<form action="" method="POST" id="form">
+																									{% csrf_token %}
+
+																									<div class="form-group">
+																										{% if form.username.errors %}
+																										<div class="alert alert-danger" role="alert">
+																											{{ form.username.errors }}
+																										</div>
+																										{% endif %}		
+																										{{ form.username }}
+																										<div class="invalid-feedback" id="usernameFieldFeedback"></div>
+																									</div>
+
+																									<div class="form-group">
+																										{% if form.email.errors %}
+																										<div class="alert alert-danger" role="alert">
+																											{{ form.email.errors }}
+																										</div>
+																										{% endif %}		
+																										{{ form.email }}
+																										<div class="invalid-feedback" id="emailFieldFeedback"></div>
+																									</div>
+
+																									<div class="form-group">
+																										{% if form.password.errors %}
+																										<div class="alert alert-danger" role="alert">
+																											{{ form.password.errors }}
+																										</div>
+																										{% endif %}	
+
+																										<div class="input-group">
+																											{{ form.password }}
+																											<div class="input-group-append mb-2">
+																												<div class="input-group-text">
+																													<span class="fa fa-eye-slash" id="tooglePassword" style="cursor: pointer;"></span>
+																												</div>
+																											</div>
+																											<div class="invalid-feedback" id="passwordFieldFeedback"></div>
+																										</div>
+																									</div>
+
+																									<div class="checkbox auth-checkbox font-small-2 mb-3">
+																										<input type="checkbox" id="condition">
+																										<label for="condition"><span>I accept the terms & conditions</span></label>
+																									</div>
+
+																									<div class="d-flex justify-content-between flex-sm-row flex-column">
+																										<a href="{% url 'auth:login' %}" class="btn bg-light-primary mb-2 mb-sm-0">Back To Login</a>
+																										<button type="button" class="btn btn-primary" id="btnSubmit">Register</button>
+																									</div>
+
+																								</form>																									
+																							</div>
+																					</div>
+																			</div>
+																	</div>
+															</div>
+													</div>
+											</div>
+									</section>
+									<!--Registration Page Ends-->
+							</div>
+					</div>
+			</div>
+	</div>
+	<!-- <script src="{% static 'auth/assets/js/auth.js' %}"></script> -->
+	<script src="{% static 'auth/assets/js/register.js' %}"></script>
+    <!-- <script src="{% static 'auth/assets/js/clear.js' %}"></script> -->
+	{% include 'include/auth_script.html' %}
+    {% include 'include/message.html' %}
+
+</body>
+{% endblock %}

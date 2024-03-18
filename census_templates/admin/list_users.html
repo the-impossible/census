@@ -41,14 +41,14 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                
+
                                                                 {% if only_users %}
                                                                     {% for user in only_users %}
                                                                     <tr>
                                                                         <td>{{ forloop.counter }}</td>
                                                                         <td class="text-truncate">
                                                                             <a href="{% url 'staff:admin_user_details' user.id %}">
-                                                                                <img src="{% if user.profile.imageURL != '' %} {{ user.profile.imageURL }} {% else %} {% static 'auth/app-assets/img/portrait/small/profile.png' %} {% endif %}" class="avatar mr-2" alt="avatar" width="30" height="30">
+                                                                                <img src=" {{ user.profile.imageURL }} {% if user.profile.imageURL != '' %} {% else %} {% static 'auth/app-assets/img/portrait/small/profile.png' %} {% endif %}" class="avatar mr-2" alt="avatar" width="30" height="30">
                                                                                 <span>{{ user.username }}</span>
                                                                             </a>
                                                                         </td>
@@ -59,11 +59,11 @@
                                                                         <td>{% if user.is_active == True %}<span class="badge bg-light-success">Active</span>{% else %}<span class="badge bg-light-danger">Not Active</span>{% endif %}</td>
                                                                     </tr>
                                                                     {% endfor %}
-                                                                
+
                                                                 {% else %}
                                                                     <p>No user</p>
                                                                 {% endif %}
-                                                                                                                            
+
                                                             </tbody>
                                                         </table>
                                                     </div>

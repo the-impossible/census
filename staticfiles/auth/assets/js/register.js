@@ -9,8 +9,8 @@ const usernameFieldFeedback = document.getElementById('usernameFieldFeedback')
 
 const tooglePassword = document.getElementById('tooglePassword')
 
-const form = document.getElementById('form') 
-const btnSubmit = document.getElementById('btnSubmit') 
+const form = document.getElementById('form')
+const btnSubmit = document.getElementById('btnSubmit')
 
 
 emailField.addEventListener('keyup', (e) => {
@@ -31,7 +31,7 @@ emailField.addEventListener('keyup', (e) => {
             if (data.email_error) {
                 emailField.classList.add('is-invalid')
                 emailFieldFeedback.innerHTML = data['email_error']
-                
+
             }else{
                 emailField.classList.remove('is-invalid')
                 emailField.classList.add('is-valid')
@@ -44,7 +44,7 @@ usernameField.addEventListener('keyup', (e) => {
     const usernameVal = e.target.value
 
     if(usernameVal.length > 0) {
-        if (usernameVal.length < 4 ) {
+        if (usernameVal.length < 10 || usernameVal.length > 10 ) {
             usernameField.classList.add('is-invalid')
             usernameFieldFeedback.innerHTML = 'Seem wrong'
         }else{
@@ -62,13 +62,13 @@ usernameField.addEventListener('keyup', (e) => {
                 if (data.username_error) {
                     usernameField.classList.add('is-invalid')
                     usernameFieldFeedback.innerHTML = data['username_error']
-                    
+
                 }else{
                     usernameField.classList.remove('is-invalid')
                     usernameField.classList.add('is-valid')
                 }
             })
-        }  
+        }
     }
 })
 

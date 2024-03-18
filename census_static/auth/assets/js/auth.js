@@ -15,10 +15,10 @@ const usernameFieldFeedback = document.getElementById('usernameFieldFeedback')
 
 const tooglePassword = document.getElementById('tooglePassword')
 
-const form = document.getElementById('form') 
+const form = document.getElementById('form')
 const btnSubmit = document.getElementById('btnSubmit')
 
-const condition = document.getElementById('condition') 
+const condition = document.getElementById('condition')
 
 btnSubmit.disabled = true
 condition.addEventListener('click', (e) => {
@@ -48,7 +48,7 @@ emailField.addEventListener('keyup', (e) => {
             if (data.email_error) {
                 emailField.classList.add('is-invalid')
                 emailFieldFeedback.innerHTML = data['email_error']
-                
+
             }else{
                 emailField.classList.remove('is-invalid')
                 emailField.classList.add('is-valid')
@@ -61,7 +61,7 @@ usernameField.addEventListener('keyup', (e) => {
     const usernameVal = e.target.value
 
     if(usernameVal.length > 0) {
-        if (usernameVal.length < 4 ) {
+        if (usernameVal.length < 10 || usernameVal.length > 10) {
             usernameField.classList.add('is-invalid')
             usernameFieldFeedback.innerHTML = 'Seem wrong'
         }else{
@@ -79,13 +79,13 @@ usernameField.addEventListener('keyup', (e) => {
                 if (data.username_error) {
                     usernameField.classList.add('is-invalid')
                     usernameFieldFeedback.innerHTML = data['username_error']
-                    
+
                 }else{
                     usernameField.classList.remove('is-invalid')
                     usernameField.classList.add('is-valid')
                 }
             })
-        }  
+        }
     }
 })
 
@@ -104,11 +104,11 @@ NumberField.addEventListener('keyup', (e) => {
         })
         .then((res) => res.json())
         .then((data) => {
-            
+
             if (data.number_error) {
                 NumberField.classList.add('is-invalid')
                 NumberFieldFeedback.innerHTML = data['number_error']
-                
+
             }else {
                 NumberField.classList.remove('is-invalid')
                 NumberField.classList.add('is-valid')
@@ -167,28 +167,28 @@ btnSubmit.addEventListener('click', (e) => {
             passwordField.classList.remove('is-invalid')
             passwordField.classList.add('is-valid')
         }
-    
+
         if (fullNameField.value == ''){
             fullNameField.classList.add('is-invalid')
         }else{
             fullNameField.classList.remove('is-invalid')
             fullNameField.classList.add('is-valid')
         }
-    
+
         if (NumberField.value == ''){
             NumberField.classList.add('is-invalid')
         }else{
             NumberField.classList.remove('is-invalid')
             NumberField.classList.add('is-valid')
         }
-    
+
         if (usernameField.value == ''){
             usernameField.classList.add('is-invalid')
         }else{
             usernameField.classList.remove('is-invalid')
             usernameField.classList.add('is-valid')
         }
-    
+
         if (emailField.value == ''){
             emailField.classList.add('is-invalid')
         }else{

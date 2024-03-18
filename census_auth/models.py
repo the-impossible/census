@@ -26,7 +26,7 @@ class AccountManager(BaseUserManager):
         if password is None:
             raise TypeError('Password should not be empty')
 
-        user = self.create_user(email=self.normalize_email(email), password=password, username=username.lower())
+        user = self.create_user(email=self.normalize_email(email), password=password, nin=username)
 
         user.is_admin = True
         user.is_staff = True
